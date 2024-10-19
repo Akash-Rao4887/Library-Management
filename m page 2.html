@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="book-details" class="card">
+            <!-- Book details will be dynamically loaded here -->
+        </div>
+        <a href="main page .html" class="button">Back to Search</a>
+    </div>
+
+    <script>
+        const books = [
+            { id: 1, title: "Introduction to Algorithms", author: "Thomas H. Cormen", price: 80, year: 2009, location: "Floor 2, Row A", category: "Computer Science" },
+            { id: 2, title: "Physics of the Impossible", author: "Michio Kaku", price: 15, year: 2008, location: "Floor 1, Row C", category: "Physics" },
+            { id: 3, title: "A Brief History of Time", author: "Stephen Hawking", price: 10, year: 1988, location: "Floor 1, Row B", category: "Physics" },
+            { id: 4, title: "Vedic Mathematics", author: "Bharati Krishna Tirthaji", price: 12, year: 1965, location: "Floor 3, Row D", category: "Vedic Maths" },
+            { id: 5, title: "Internet of Things", author: "Samuel Greengard", price: 20, year: 2015, location: "Floor 2, Row B", category: "IOT" },
+            { id: 6, title: "Calculus", author: "James Stewart", price: 200, year: 2015, location: "Floor 3, Row A", category: "Maths" },
+        ];
+
+        function getBookDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookId = parseInt(urlParams.get('id'), 10);
+            const book = books.find(b => b.id === bookId);
+
+            if (book) {
+                const bookDetailsContainer = document.getElementById("book-details");
+                bookDetailsContainer.innerHTML = `
+                    <h2>${book.title}</h2>
+                    <p><strong>Author:</strong> ${book.author}</p>
+                    <p><strong>Price:</strong> $${book.price}</p>
+                    <p><strong>Year:</strong> ${book.year}</p>
+                    <p><strong>Location:</strong> ${book.location}</p>
+                    <p><strong>Category:</strong> ${book.category}</p>
+                `;
+            } else {
+                document.getElementById("book-details").innerHTML = "<p>Book not found.</p>";
+            }
+        }
+
+        // Call the function to display book details
+        getBookDetails();
+    </script>
+</body>
+
+</html>
