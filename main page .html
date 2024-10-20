@@ -130,15 +130,15 @@
     <div class="container">
         <div class="flex mb-4">
             <h1>Library Book Search</h1>
-            <a href="service page.html" class="button">Service</a>
+            <a href="service page.html" class="button" aria-label="Service Page">Service</a>
         </div>
         <div class="search-container mb-4">
             <div class="search-input-container">
-                <input type="text" id="search-input" placeholder="Search for a book..." onkeyup="filterBooks()">
+                <input type="text" id="search-input" placeholder="Search for a book or author..." onkeyup="filterBooks()">
             </div>
-            <button class="button" onclick="clearSearch()">Clear</button>
+            <button class="button" onclick="clearSearch()" aria-label="Clear Search">Clear</button>
         </div>
-        <button class="button" onclick="toggleFilter()">Filter Categories</button>
+        <button class="button" onclick="toggleFilter()" aria-label="Filter Categories">Filter Categories</button>
         <div id="filter-container" class="filter-bar">
             <span class="badge active" onclick="filterByCategory('All')">All</span>
             <span class="badge" onclick="filterByCategory('Maths')">Maths</span>
@@ -164,30 +164,37 @@
 
         let currentCategory = 'All';
 
+        // Filter books by category
+        function filterByCategory(category) {
+            currentCategory = category;
+
+            // Update active badge styling
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach(badge => {
+                if (badge.innerText === category) {
+                    badge.classList.add('active');
+                } else {
+                    badge.classList.remove('active');
+                }
+            });
+
+            // Apply filtering
+            filterBooks();
+        }
+
+        // Filter books based on search input and selected category
         function filterBooks() {
             const searchTerm = document.getElementById("search-input").value.toLowerCase();
             const filteredBooks = books.filter(book => {
-                return (book.title.toLowerCase().includes(searchTerm) && (currentCategory === 'All' || book.category === currentCategory));
+                return (
+                    (book.title.toLowerCase().includes(searchTerm) || book.author.toLowerCase().includes(searchTerm))
+                    && (currentCategory === 'All' || book.category === currentCategory)
+                );
             });
             renderBooks(filteredBooks);
         }
 
-        function filterByCategory(category) {
-            currentCategory = category;
-            document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('active'));
-            document.querySelectorAll('.badge').forEach(badge => {
-                if (badge.textContent.trim() === category) {
-                    badge.classList.add('active');
-                }
-            });
-            filterBooks();
-        }
-
-        function clearSearch() {
-            document.getElementById("search-input").value = "";
-            filterBooks();
-        }
-
+        // Render filtered book list
         function renderBooks(bookList) {
             const bookListContainer = document.getElementById("book-list");
             bookListContainer.innerHTML = '';
@@ -204,12 +211,23 @@
             });
         }
 
+        // Clear the search and reset filters
+        function clearSearch() {
+            document.getElementById("search-input").value = "";
+            currentCategory = 'All';
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach(badge => badge.classList.remove('active'));
+            document.querySelector('.badge.active').classList.add('active');
+            filterBooks();
+        }
+
+        // Toggle the visibility of the filter categories
         function toggleFilter() {
             const filterContainer = document.getElementById("filter-container");
             filterContainer.style.display = filterContainer.style.display === "none" || filterContainer.style.display === "" ? "flex" : "none";
         }
 
-        // Initial load
+        // Initial render of all books
         renderBooks(books);
     </script>
 </body>
