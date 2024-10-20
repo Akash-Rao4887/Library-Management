@@ -109,7 +109,7 @@
             <div id="login" class="tab-content">
                 <h2>Login</h2>
                 <p>Enter your credentials to access your account.</p>
-                <form onsubmit="goToMainPage(event)">
+                <form onsubmit="handleLogin(event)">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" placeholder="m@example.com" required>
@@ -126,7 +126,7 @@
             <div id="signup" class="tab-content" style="display: none;">
                 <h2>Sign Up</h2>
                 <p>Create a new account to get started.</p>
-                <form onsubmit="goToMainPage(event)">
+                <form onsubmit="handleSignup(event)">
                     <div class="form-group">
                         <label for="signup-name">Name</label>
                         <input type="text" id="signup-name" placeholder="John Doe" required>
@@ -172,14 +172,31 @@
             field.type = field.type === 'password' ? 'text' : 'password';
         }
 
-        // Prevent form submission and simulate going to the main page
-        function goToMainPage(event) {
+        // Handle signup process
+        function handleSignup(event) {
             event.preventDefault(); // Prevent actual form submission
-            window.location.href = 'main page .html'; // Redirect to main page (replace with actual URL)
+            // Simulate successful signup (You could add validation here)
+            localStorage.setItem('isSignedUp', 'true');
+            alert('Sign up successful! Redirecting to the library search page.');
+            window.location.href = 'main page .html'; // Redirect to library search page (replace with actual URL)
+        }
+
+        // Handle login process
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent actual form submission
+            const isSignedUp = localStorage.getItem('isSignedUp');
+
+            if (isSignedUp === 'true') {
+                alert('Login successful! Redirecting to the library search page.');
+                window.location.href = 'main page .html'; // Redirect to library search page (replace with actual URL)
+            } else {
+                alert('Please sign up first.');
+            }
         }
     </script>
 
 </body>
 
 </html>
+
 
