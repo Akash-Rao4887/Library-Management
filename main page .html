@@ -99,13 +99,6 @@
             margin-bottom: 10px;
         }
 
-        .filter-container {
-            display: none;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
         input[type="text"] {
             padding: 10px;
             width: 100%;
@@ -134,7 +127,7 @@
         </div>
         <div class="search-container mb-4">
             <div class="search-input-container">
-                <input type="text" id="search-input" placeholder="Search for a book or author..." onkeyup="filterBooks()">
+                <input type="text" id="search-input" placeholder="Search for a book..." onkeyup="filterBooks()">
             </div>
             <button class="button" onclick="clearSearch()" aria-label="Clear Search">Clear</button>
         </div>
@@ -146,6 +139,8 @@
             <span class="badge" onclick="filterByCategory('Vedic Maths')">Vedic Maths</span>
             <span class="badge" onclick="filterByCategory('Computer Science')">Computer Science</span>
             <span class="badge" onclick="filterByCategory('IOT')">IOT</span>
+            <span class="badge" onclick="filterByCategory('BIOLOGY')">BIOLOGY</span>
+            <span class="badge" onclick="filterByCategory('Arts')">Arts</span>
         </div>
         <div id="book-list" class="grid">
             <!-- Books will be dynamically loaded here -->
@@ -155,15 +150,30 @@
     <script>
         const books = [
             { id: 1, title: "Introduction to Algorithms", author: "Thomas H. Cormen", year: 2009, category: "Computer Science" },
-            { id: 2, title: "Physics of the Impossible", author: "Michio Kaku", year: 2008, category: "Physics" },
-            { id: 3, title: "A Brief History of Time", author: "Stephen Hawking", year: 1988, category: "Physics" },
-            { id: 4, title: "Vedic Mathematics", author: "Bharati Krishna Tirthaji", year: 1965, category: "Vedic Maths" },
-            { id: 5, title: "Internet of Things", author: "Samuel Greengard", year: 2015, category: "IOT" },
-            { id: 6, title: "Calculus", author: "James Stewart", year: 2015, category: "Maths" },
-        ];
-
-        let currentCategory = 'All';
-
+            { id: 2, title: "Introduction to c progrming", author: "Thomas lekarz", year: 2006, category: "Computer Science" },
+            { id: 3, title: "Physics of the Impossible", author: "Michio Kaku", year: 2008, category: "Physics" },
+            { id: 4, title: "A Brief History of Time", author: "Stephen Hawking", year: 1988, category: "Physics" },
+            { id: 5, title: "Vedic Mathematics", author: "Bharati Krishna Tirthaji", year: 1965, category: "Vedic Maths" },
+            { id: 6, title: "Internet of Things", author: "Samuel Greengard", year: 2015, category: "IOT" },
+            { id: 7, title: "Calculus", author: "James Stewart", year: 2015, category: "Maths" },
+            { id: 8, title: "Trigonometry", author: "The greate lekarz", year: 2012, category: "Maths" },
+            { id: 9, title: "The C Programming Language: ANSI C Version ", author: " Brian W. Kernighan, Dennis M. Ritchie", year: 2015, category: "Computer Science" },
+            { id: 10, title: "Data structures and Program Design in C , 4th Edition", year: 2006, category: "Computer Science" },
+            { id: 11, title: "Internet of Things", year: 2004, category: "IOT" },
+            { id: 12, title: "Internet of things (A-Hand-on-Approach) ", year: 2015, category: "IOT" },
+            { id: 13, title: "The Internet of Things: Connecting Objects ", year: 2016, category: "IOT" },
+            { id: 14, title: "Applied Digital Signal Processing", year: 2012 , category: "IOT" },
+            { id: 15, title: "Wireless Communications And Networking", year: 2020 , category: "IOT" },
+            { id: 16, title: "Introduction To Rader System", year: 2000, category: "IOT" },
+            { id: 17, title: "Wireless Sensor Network", year: 2021, category: "IOT" },
+            { id: 18, title: "Fiber-optic Communication System", year:2006 , category: "IOT" },
+            { id: 19, title: "Introduction To Wireless & Mobile System", year: 2004 , category: "IOT" },
+            { id: 20, title: "Satillite Communication System", year: 1999 , category: "IOT" },
+            { id: 21, title: "Antenna Measurement Tecniques", year: 2001, category: "IOT" },
+            { id: 22, title: "Signals And systems", year: 2003, category: "IOT" },
+            { id: 23, title: "Advanced Electronic Communications System", year: 2020, category: "IOT" },
+    ];      
+    let currentCategory = 'All';
         // Filter books by category
         function filterByCategory(category) {
             currentCategory = category;
@@ -186,10 +196,7 @@
         function filterBooks() {
             const searchTerm = document.getElementById("search-input").value.toLowerCase();
             const filteredBooks = books.filter(book => {
-                return (
-                    (book.title.toLowerCase().includes(searchTerm) || book.author.toLowerCase().includes(searchTerm))
-                    && (currentCategory === 'All' || book.category === currentCategory)
-                );
+                return (book.title.toLowerCase().includes(searchTerm) && (currentCategory === 'All' || book.category === currentCategory));
             });
             renderBooks(filteredBooks);
         }
@@ -233,3 +240,4 @@
 </body>
 
 </html>
+
